@@ -20,6 +20,11 @@ final class RequestHeaders implements ParamConverterInterface
             throw new MissingHeaderException($headerName);
         }
         $object = $request->headers->get($headerName);
+        if ($object === null) {
+            $request->attributes->set($parameterName, null);
+            return true;
+        }
+
         if (in_array(strtolower($configuration->getClass()), ['int', 'integer'])) {
             $object = (int)$object;
         }
