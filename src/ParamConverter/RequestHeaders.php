@@ -32,7 +32,7 @@ final class RequestHeaders implements ParamConverterInterface
             $object = (string)$object;
         }
         if (in_array(strtolower($configuration->getClass()), ['bool', 'boolean'])) {
-            $object = (bool)$object;
+            $object = filter_var($object, FILTER_VALIDATE_BOOLEAN);
         }
 
         $request->attributes->set($parameterName, $object);
